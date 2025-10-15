@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Travel History - TravelWorld</title>
+    <link rel="stylesheet" href="{% static 'styles/bootstrap4/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <style>
+        body { background: linear-gradient(135deg,#f8fafc,#eef2ff); font-family: 'Helvetica Neue', Arial, sans-serif; }
+        .container { max-width: 1000px; margin: 48px auto; }
+        .history-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 6px 24px rgba(15,23,42,0.08); margin-bottom: 18px; display:flex; gap:18px; align-items:center; }
+        .history-image { width:120px; height:80px; background-size:cover; background-position:center; border-radius:8px; flex-shrink:0; }
+        .history-meta { flex:1; }
+        .history-meta h4 { margin:0 0 6px 0; font-size:1.1rem; }
+        .history-meta p { margin:0; color:#556; }
+        .history-actions { text-align:right; }
+        .empty-state { text-align:center; color:#7b8794; padding:48px; background:#fff; border-radius:12px; box-shadow:0 6px 24px rgba(15,23,42,0.04);} 
+        .topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; }
+        .btn-primary { background: linear-gradient(90deg,#6366f1,#60a5fa); border:none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="topbar">
+            <h2 style="margin:0;">Your Travel History</h2>
+            <div>
+                <a href="{% url 'profile' %}" class="btn btn-light"><i class="fa fa-arrow-left"></i> Back to Profile</a>
+                <a href="{% url 'index' %}" class="btn btn-primary"><i class="fa fa-home"></i> Home</a>
+            </div>
+        </div>
+
+        {% if purchases and purchases|length > 0 %}
+            {% for p in purchases %}
+                <div class="history-card">
+                    <div class="history-image" style="background-image: url('{% if p.package.image %}{{ p.package.image.url }}{% else %}{% static 'images/destination_1.jpg' %}{% endif %}')"></div>
+                    <div class="history-meta">
+                        <h4>{{ p.package.title }}</h4>
+                        <p><strong>Destination:</strong> {{ p.package.place }}</p>
+                        <p><strong>Purchased:</strong> {{ p.purchased_at|date:'F j, Y, g:i a' }}</p>
+                        <p><strong>Price:</strong> ৳{{ p.package.price }}</p>
+                    </div>
+                    <div class="history-actions">
+                        <a href="{% url 'package-detail' p.package.pk %}" class="btn btn-outline-info"><i class="fa fa-eye"></i> View</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <h3>No travels yet</h3>
+                <p>Looks like you haven't purchased any packages. Explore our <a href="{% url 'package-list' %}">tour packages</a> to start your journey.</p>
+            </div>
+        {% endif %}
+
+    </div>
+</body>
+</html>

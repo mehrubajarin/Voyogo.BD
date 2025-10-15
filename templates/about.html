@@ -1,0 +1,431 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<title>About us</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Travello template project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/bootstrap4/bootstrap.min.css' %}">
+<link href="{% static 'plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/animate.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/about.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/about_responsive.css' %}">
+</head>
+<body>
+
+<div class="super_container">
+	
+	<!-- Header -->
+
+	<header class="header" style="background: #111;">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="header_content d-flex flex-row align-items-center justify-content-start">
+						<div class="header_content_inner d-flex flex-row align-items-end justify-content-start">
+							<div class="logo"><a href=".."> voyago.BD</a></div>
+							<nav class="main_nav">
+								<ul class="d-flex flex-row align-items-start justify-content-start">
+									<li><a href="..">Home</a></li>
+									<li class="active"><a href="about">About Us</a></li>
+									<li><a href="contact">Contact</a></li>
+
+									{% if user.is_authenticated %}
+										<li><a href="logout">Logout</a></li>
+									{% else %}
+										<li><a href="register">Register</a></li>
+										<li><a href="login">Login</a></li>
+									{% endif %}
+								</ul>
+							</nav>
+							{% if user.is_authenticated %}
+								 <div class="header_phone ml-auto">{{user.first_name}}({{user.get_user_type_display}})</div>
+							{% else %}
+								  
+							{% endif %}
+
+							<!-- Hamburger -->
+
+							<div class="hamburger ml-auto">
+								<i class="fa fa-bars" aria-hidden="true"></i>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="header_social d-flex flex-row align-items-center justify-content-start">
+			<ul class="d-flex flex-row align-items-start justify-content-start">
+				<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+			</ul>
+		</div>
+	</header>
+
+	<!-- Menu -->
+
+	<div class="menu">
+		<div class="menu_header d-flex flex-row align-items-center justify-content-start">
+			<div class="menu_logo"><a href=".."> voyago.BD</a></div>
+			<div class="menu_close_container ml-auto"><div class="menu_close"><div></div><div></div></div></div>
+		</div>
+		<div class="menu_content">
+			<ul>
+				<li><a href="..">Home</a></li>
+				<li class="active"><a href="about">About Us</a></li>
+				<li><a href="contact">Contact</a></li>
+
+				{% if user.is_authenticated %}
+					<li><a href="logout">Logout</a></li>
+				{% else %}
+					<li><a href="register">Register</a></li>
+					<li><a href="login">Login</a></li>
+				{% endif %}
+			</ul>
+		</div>
+		<div class="menu_social">
+			{% if user.is_authenticated %}
+				<div class="menu_phone ml-auto">Logged in: {{user.first_name}} {{user.last_name}}</div>
+			{% else %}
+				<div class="menu_phone ml-auto">Call us: 00-56 445 678 33</div>
+				<ul class="d-flex flex-row align-items-start justify-content-start">
+					<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+					<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+					<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+					<li><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+					<li><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
+					<li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+				</ul>
+			{% endif %}
+		</div>
+	</div>
+	
+	<!-- Home -->
+
+	<div class="home">
+	<!-- Removed header background photo -->
+	</div>
+
+	<!-- Search -->
+
+	
+
+	<!-- About -->
+
+	<div class="about">
+		<div class="container" style="margin-top: -370px;">
+			<div class="row">
+				<div class="col text-center">
+					<div class="section_subtitle">simply amazing places</div>
+					<div class="section_title"><h2>A few words about us</h2></div>
+				</div>
+			</div>
+			<div class="row about_row">
+				<div class="col-lg-6">
+					<div class="about_content">
+						<div class="text_highlight">Empowering travelers with authentic, sustainable journeys across Bangladesh and beyond — curated experiences, trusted local experts, and meaningful cultural connection.</div>
+						<div class="about_text">
+							<p>We created voyago.BD to make discovering Bangladesh and the wider world simpler, more transparent, and more inspiring. From the tea gardens of Sylhet and the serene beaches of Cox’s Bazar to the vibrant heritage trails of Dhaka and the mangrove mysteries of the Sundarbans, travel isn’t just movement for us—it’s meaningful connection. Our platform helps you compare curated tour packages, understand real value, and book with confidence. Every itinerary is reviewed for authenticity, safety, and cultural respect. We champion sustainable and responsible tourism: supporting local guides, reducing unnecessary plastic, and encouraging travelers to leave places better than they found them. Whether you’re planning your first backpack journey, a family escape, or a premium experiential retreat, we’re here to turn your curiosity into unforgettable journeys. Let’s explore—responsibly, joyfully, together.</p>
+						</div>
+						<div class="button about_button"><a href="#">read more</a></div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+				<!-- Removed header about image -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Milestones -->
+
+	<div class="milestones">
+		<div class="container">
+			<div class="row">
+				
+				<!-- Milestone -->
+				
+
+				<!-- Milestone -->
+				
+
+				<!-- Milestone -->
+				
+
+				<!-- Milestone -->
+				
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Why Choose Us -->
+
+	<div class="why">
+		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="{% static 'images/why.jpg' %}" data-speed="0.8"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col text-center">
+					<div class="section_subtitle">simply amazing places</div>
+					<div class="section_title"><h2>Why choose us?</h2></div>
+				</div>
+			</div>
+			<div class="row why_row">
+				
+				<!-- Why item -->
+				<div class="col-lg-4 why_col">
+					<div class="why_item">
+						<div class="why_image">
+							<img src="{% static 'images/why_1.jpg' %}" alt="">
+							<div class="why_icon d-flex flex-column align-items-center justify-content-center">
+								<img src="{% static 'images/why_1.svg' %}" alt="">
+							</div>
+						</div>
+						<div class="why_content text-center">
+							<div class="why_title">Fast Services</div>
+							<div class="why_text">
+								<p>Pellentesque sit amet elementum ccumsan sit amet mattis eget, tristique at leo.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Why item -->
+				<div class="col-lg-4 why_col">
+					<div class="why_item">
+						<div class="why_image">
+							<img src="{% static 'images/why_2.jpg' %}" alt="">
+							<div class="why_icon d-flex flex-column align-items-center justify-content-center">
+								<img src="{% static 'images/why_2.svg' %}" alt="">
+							</div>
+						</div>
+						<div class="why_content text-center">
+							<div class="why_title">Great Team</div>
+							<div class="why_text">
+								<p>Pellentesque sit amet elementum ccumsan sit amet mattis eget, tristique at leo.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Why item -->
+				<div class="col-lg-4 why_col">
+					<div class="why_item">
+						<div class="why_image">
+							<img src="{% static 'images/why_3.jpg' %}" alt="">
+							<div class="why_icon d-flex flex-column align-items-center justify-content-center">
+								<img src="{% static 'images/why_3.svg' %}" alt="">
+							</div>
+						</div>
+						<div class="why_content text-center">
+							<div class="why_title">Best Deals</div>
+							<div class="why_text">
+								<p>Pellentesque sit amet elementum ccumsan sit amet mattis eget, tristique at leo.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Team -->
+
+	<div class="team">
+
+	<style>
+		.modern-team-section {
+			padding: 48px 0 32px 0;
+			background: #f8fafc;
+		}
+		.modern-team-title {
+			font-size: 2.2rem;
+			font-weight: 700;
+			color: #6366f1;
+			margin-bottom: 8px;
+			text-align: center;
+		}
+		.modern-team-subtitle {
+			font-size: 1.1rem;
+			color: #888;
+			text-align: center;
+			margin-bottom: 32px;
+		}
+		.modern-team-row {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 32px;
+		}
+		.modern-team-card {
+			background: #fff;
+			border-radius: 18px;
+			box-shadow: 0 4px 24px rgba(60,72,88,0.10);
+			padding: 32px 24px 24px 24px;
+			max-width: 460px;
+			min-height: 350px;
+			width: 100%;
+			text-align: center;
+			transition: box-shadow 0.2s;
+		}
+		.modern-team-card:hover {
+			box-shadow: 0 8px 32px rgba(99,102,241,0.18);
+		}
+		.modern-team-img {
+			width: 180px;
+			height: 180px;
+			border-radius: 50%;
+			object-fit: cover;
+			margin-bottom: 18px;
+			box-shadow: 0 2px 8px rgba(99,102,241,0.10);
+		}
+		.modern-team-name {
+			font-size: 1.2rem;
+			font-weight: 600;
+			color: #222;
+			margin-bottom: 6px;
+		}
+		.modern-team-role {
+			font-size: 1rem;
+			color: #6366f1;
+			font-weight: 500;
+			margin-bottom: 0;
+		}
+	</style>
+	<div class="modern-team-section">
+		<div class="container">
+			<div class="modern-team-title">Meet the Team</div>
+			<div class="modern-team-subtitle">simply amazing places</div>
+			<div class="modern-team-row">
+				<div class="modern-team-card">
+					<img src="{% static 'images/team_1.jpg' %}" alt="Mehruba Tabassum" class="modern-team-img">
+					<div class="modern-team-name">Mehruba Tabassum</div>
+					<div class="modern-team-role">Lead Programmer</div>
+				</div>
+				<div class="modern-team-card">
+					<img src="{% static 'images/team_2.jpg' %}" alt="Srabanti Saha Riya" class="modern-team-img">
+					<div class="modern-team-name">Srabanti Saha Riya</div>
+					<div class="modern-team-role">Senior Developer</div>
+				</div>
+				<div class="modern-team-card">
+					<img src="{% static 'images/team_3.jpg' %}" alt="Subrina Akter" class="modern-team-img">
+					<div class="modern-team-name">Subrina Akter</div>
+					<div class="modern-team-role">UI/UX Designer</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Footer -->
+
+	<footer class="footer" style="background: #111; color: #fff;">
+	<!-- Removed footer background photo -->
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="newsletter">
+						<div class="newsletter_title_container text-center">
+							<div class="newsletter_title">Subscribe to our newsletter to get the latest trends & news</div>
+							<div class="newsletter_subtitle">Join our database NOW!</div>
+						</div>
+						<div class="newsletter_form_container">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row footer_contact_row">
+				<div class="col-xl-10 offset-xl-1">
+					<div class="row">
+
+						<!-- Footer Contact Item -->
+						<div class="col-xl-4 footer_contact_col">
+							<div class="footer_contact_item d-flex flex-column align-items-center justify-content-start text-center">
+								<div class="footer_contact_icon"><img src="{% static 'images/sign.svg' %}" alt=""></div>
+								<div class="footer_contact_title">give us a call</div>
+								<div class="footer_contact_list">
+									<ul>
+										<li>Office Landline: +44 5567 32 664 567</li>
+										<li>Mobile: +44 5567 89 3322 332</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<!-- Footer Contact Item -->
+						<div class="col-xl-4 footer_contact_col">
+							<div class="footer_contact_item d-flex flex-column align-items-center justify-content-start text-center">
+								<div class="footer_contact_icon"><img src="{% static 'images/trekking.svg' %}" alt=""></div>
+								<div class="footer_contact_title">come & drop by</div>
+								<div class="footer_contact_list">
+									<ul style="max-width:190px">
+										<li>4124 Barnes Street, Sanford, FL 32771</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<!-- Footer Contact Item -->
+						<div class="col-xl-4 footer_contact_col">
+							<div class="footer_contact_item d-flex flex-column align-items-center justify-content-start text-center">
+								<div class="footer_contact_icon"><img src="{% static 'images/around.svg' %}" alt=""></div>
+								<div class="footer_contact_title">send us a message</div>
+								<div class="footer_contact_list">
+									<ul>
+										<li>youremail@gmail.com</li>
+										<li>Office@yourbusinessname.com</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="background-color: black;" class="col text-center"><!-- Link back to   voyago.BD can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved |   <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://instagram.com/kmranrg" target="_blank">Mehruba Tabassum</a> | Credits:<a href="https://  voyago.BD.com/" target="_blank">   voyago.BD</a>
+<!-- Link back to   voyago.BD can't be removed. Template is licensed under CC BY 3.0. --> </div>
+
+	</footer>
+</div>
+
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'styles/bootstrap4/popper.js' %}"></script>
+<script src="{% static 'styles/bootstrap4/bootstrap.min.js' %}"></script>
+<script src="{% static 'plugins/greensock/TweenMax.min.js' %}"></script>
+<script src="{% static 'plugins/greensock/TimelineMax.min.js' %}"></script>
+<script src="{% static 'plugins/scrollmagic/ScrollMagic.min.js' %}"></script>
+<script src="{% static 'plugins/greensock/animation.gsap.min.js' %}"></script>
+<script src="{% static 'plugins/greensock/ScrollToPlugin.min.js' %}"></script>
+<script src="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
+<script src="{% static 'plugins/easing/easing.js' %}"></script>
+<script src="{% static 'plugins/parallax-js-master/parallax.min.js' %}"></script>
+<script src="{% static 'js/about.js' %}"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+
+
+</body>
+
+</html>

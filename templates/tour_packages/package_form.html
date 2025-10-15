@@ -1,0 +1,275 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% if form.instance.pk %}Edit{% else %}Create{% endif %} Tour Package - TravelWorld</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Travello template project">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/bootstrap4/bootstrap.min.css' %}">
+    <link href="{% static 'plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/main_styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/responsive.css' %}">
+    <style>
+        .form-container {
+            max-width: 800px;
+            margin: 190px auto 0 auto;
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .form-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 8px;
+        }
+        .form-control {
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            padding: 12px;
+            transition: border-color 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+        }
+        .form-control-file {
+            padding: 8px;
+            border: 2px dashed #ddd;
+            border-radius: 6px;
+            background: #f8f9fa;
+        }
+        .btn-submit {
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        .btn-submit:hover {
+            background: linear-gradient(45deg, #0056b3, #004085);
+            transform: translateY(-2px);
+        }
+        .preview-image {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="super_container">
+    
+    <!-- Header -->
+    <header class="header" style="background-color: {% if form.instance.pk %}#b71c1c{% else %}#1565c0{% endif %}; color: #fff;">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="header_content d-flex flex-row align-items-center justify-content-start">
+                        <div class="header_content_inner d-flex flex-row align-items-end justify-content-start">
+                            <div class="logo"><a href="/"> voyago.BD</a></div>
+                            <nav class="main_nav">
+                                <ul class="d-flex flex-row align-items-start justify-content-start">
+                                    <li><a href="/">Home</a></li>
+                                    <li><a href="accounts/about">About Us</a></li>
+                                    <li class="active"><a href="/packages/">Tour Packages</a></li>
+                                    <li><a href="accounts/contact">Contact</a></li>
+
+                                    {% if user.is_authenticated %}
+                                        <li><a href="accounts/profile">Profile</a></li>
+                                        <li><a href="accounts/logout">Logout</a></li>
+                                    {% else %}
+                                        <li><a href="accounts/register">Register</a></li>
+                                        <li><a href="accounts/login">Login</a></li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                            {% if user.is_authenticated %}
+                                 <div class="header_phone ml-auto">{{user.first_name}}({{user.get_user_type_display}})</div>
+                            {% else %}
+                                <div class="header_phone ml-auto">
+                                    <a style="color: white; font-size:xx-large;" href=" " target="_blank">
+                                        <i class="fa fa-instagram" aria-hidden="false"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+
+                            <div class="hamburger ml-auto">
+                                <i class="fa fa-bars" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-container">
+                    <h2 class="form-title">
+                        <i class="fa fa-{% if form.instance.pk %}edit{% else %}plus{% endif %}"></i>
+                        {% if form.instance.pk %}Edit{% else %}Create New{% endif %} Tour Package
+                    </h2>
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert">
+                                    <span>&times;</span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="form-group">
+                            <label for="{{ form.title.id_for_label }}">
+                                <i class="fa fa-tag"></i> Package Title *
+                            </label>
+                            {{ form.title }}
+                            {% if form.title.errors %}
+                                <div class="text-danger mt-1">{{ form.title.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.place.id_for_label }}">
+                                <i class="fa fa-map-marker"></i> Destination Place *
+                            </label>
+                            {{ form.place }}
+                            {% if form.place.errors %}
+                                <div class="text-danger mt-1">{{ form.place.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="{{ form.time_slot.id_for_label }}">
+                                        <i class="fa fa-clock-o"></i> Time Slot *
+                                    </label>
+                                    {{ form.time_slot }}
+                                    {% if form.time_slot.errors %}
+                                        <div class="text-danger mt-1">{{ form.time_slot.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="{{ form.price.id_for_label }}">
+                                        <span style="font-weight:bold; color:#1565c0;">৳</span> Price (Taka) *
+                                    </label>
+                                    {{ form.price }}
+                                    {% if form.price.errors %}
+                                        <div class="text-danger mt-1">{{ form.price.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.transport.id_for_label }}">
+                                <i class="fa fa-{% if form.transport.value == 'bus' %}bus{% elif form.transport.value == 'train' %}train{% else %}plane{% endif %}"></i> Transport Option *
+                            </label>
+                            {{ form.transport }}
+                            {% if form.transport.errors %}
+                                <div class="text-danger mt-1">{{ form.transport.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.image.id_for_label }}">
+                                <i class="fa fa-image"></i> Package Image (Optional)
+                            </label>
+                            {{ form.image }}
+                            {% if form.image.errors %}
+                                <div class="text-danger mt-1">{{ form.image.errors.0 }}</div>
+                            {% endif %}
+                            {% if form.instance.image %}
+                                <div class="mt-2">
+                                    <strong>Current Image:</strong><br>
+                                    <img src="{{ form.instance.image.url }}" alt="Current package image" class="preview-image">
+                                </div>
+                            {% else %}
+                                <div class="mt-2">
+                                    <strong>No image uploaded yet.</strong>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-submit">
+                                <i class="fa fa-save"></i> 
+                                {% if form.instance.pk %}Update{% else %}Create{% endif %} Package
+                            </button>
+                            <a href="{% url 'package-list' %}" class="btn btn-secondary ml-3">
+                                <i class="fa fa-times"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <p>&copy; 2024 TravelWorld. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'styles/bootstrap4/popper.js' %}"></script>
+<script src="{% static 'styles/bootstrap4/bootstrap.min.js' %}"></script>
+
+<script>
+// Preview image before upload
+document.getElementById('{{ form.image.id_for_label }}').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.createElement('img');
+            preview.src = e.target.result;
+            preview.className = 'preview-image';
+            preview.style.marginTop = '10px';
+            
+            const container = document.getElementById('{{ form.image.id_for_label }}').parentNode;
+            const existingPreview = container.querySelector('.preview-image');
+            if (existingPreview) {
+                existingPreview.remove();
+            }
+            container.appendChild(preview);
+        };
+        reader.readAsDataURL(file);
+    }
+});
+</script>
+
+</body>
+</html> 

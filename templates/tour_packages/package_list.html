@@ -1,0 +1,276 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Tour Packages - TravelWorld</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Travello template project">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/bootstrap4/bootstrap.min.css' %}">
+    <link href="{% static 'plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/main_styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/responsive.css' %}">
+    <style>
+        /* Black Header Styles */
+        .header {
+            background-color: #000000 !important;
+        }
+        
+        .header_content_inner .logo a,
+        .main_nav ul li a,
+        .header_phone {
+            color: #ffffff !important;
+        }
+        
+        .main_nav ul li.active a {
+            color: #f5a623 !important;
+        }
+        
+        .hamburger i {
+            color: #ffffff !important;
+        }
+        
+        /* Increased spacing below header */
+        .main-content {
+            margin-top: 100px;  /* Increased from 60px */
+            padding-top: 100px; /* Increased from 20px */
+        }
+        
+        .page-title-container {
+            margin-bottom: 40px;
+        }
+        
+        /* Additional spacing for the create button */
+        .create-btn-container {
+            margin-top: 30px;  /* Added to push button down */
+            margin-bottom: 20px;
+        }
+        
+        /* Package Card Styles */
+        .package-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .package-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .package-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        .package-content {
+            padding: 20px;
+        }
+        .package-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .package-place {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .package-price {
+            font-size: 1.3rem;
+            color: #28a745;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .package-details {
+            margin-bottom: 15px;
+        }
+        .transport-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+        }
+        .transport-bus { background-color: #ffc107; color: #000; }
+        .transport-train { background-color: #17a2b8; color: #fff; }
+        .transport-plane { background-color: #007bff; color: #fff; }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="super_container">
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="header_content d-flex flex-row align-items-center justify-content-start">
+                        <div class="header_content_inner d-flex flex-row align-items-end justify-content-start">
+                            <div class="logo"><a href="/"> voyago.BD</a></div>
+                            <nav class="main_nav">
+                                <ul class="d-flex flex-row align-items-start justify-content-start">
+                                    <li><a href="{% url 'index' %}">Home</a></li>
+                                    <li><a href="{% url 'about' %}">About Us</a></li>
+                                    <li class="active"><a href="{% url 'package-list' %}">Tour Packages</a></li>
+                                    <li><a href="{% url 'contact' %}">Contact</a></li>
+
+                                    {% if user.is_authenticated %}
+                                        <li><a href="{% url 'profile' %}">Profile</a></li>
+                                        <li><a href="{% url 'logout' %}">Logout</a></li>
+                                    {% else %}
+                                        <li><a href="{% url 'register' %}">Register</a></li>
+                                        <li><a href="{% url 'login' %}">Login</a></li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                            {% if user.is_authenticated %}
+                                <div class="header_phone ml-auto">{{user.first_name}} ({{user.get_user_type_display}})</div>
+                            {% else %}
+                                <div class="header_phone ml-auto">
+                                    <a style="color: white; font-size:xx-large;" href="" target="_blank">
+                                        <i class="fa fa-instagram" aria-hidden="false"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+
+                            <div class="hamburger ml-auto">
+                                <i class="fa fa-bars" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <div class="main-content">
+        <div class="container">
+            <div class="d-flex justify-content-end mb-4" style="gap: 15px;">
+                <a href="https://railapp.railway.gov.bd/splash/select-language" class="btn btn-outline-info btn-lg" title="Train" target="_blank" rel="noopener">
+                    <i class="fa fa-train"></i> Train
+                </a>
+                <a href="https://bdtickets.com/" class="btn btn-outline-warning btn-lg" title="Bus" target="_blank">
+                        <i class="fa fa-bus"></i> Bus
+                    </a>
+                    <a href="https://www.biman-airlines.com/" class="btn btn-outline-primary btn-lg" title="Plane" target="_blank">
+                                        <i class="fa fa-plane"></i> Plane
+                                    </a>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="display-4 text-center mb-5">Tour Packages</h1>
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert">
+                                    <span>&times;</span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="create-btn-container text-center">
+                        {% if user.is_authenticated and user.is_admin or user.is_travel_agent or user.is_superuser %}
+                            <a href="{% url 'package-create' %}" class="btn btn-primary btn-lg">
+                                <i class="fa fa-plus"></i> Create New Package
+                            </a>
+                        {% endif %}
+                    </div>
+
+                    {% if packages %}
+                        <div class="row">
+                            {% for package in packages %}
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="package-card">
+                                        <div class="package-image" style="background-image: url('{% if package.image %}{{ package.image.url }}{% else %}{% static 'images/destination_1.jpg' %}{% endif %}')"></div>
+                                        <div class="package-content">
+                                            <div class="package-title">{{ package.title }}</div>
+                                            <div class="package-place">
+                                                <i class="fa fa-map-marker"></i> {{ package.place }}
+                                            </div>
+                                            <div class="package-price">৳{{ package.price }}</div>
+                                            <div class="package-details">
+                                                <small><i class="fa fa-clock-o"></i> {{ package.time_slot }}</small><br>
+                                                <span class="transport-badge transport-{{ package.transport }}">
+                                                    <i class="fa fa-{% if package.transport == 'bus' %}bus{% elif package.transport == 'train' %}train{% else %}plane{% endif %}"></i>
+                                                    {{ package.get_transport_display }}
+                                                </span>
+                                            </div>
+                                            <div class="action-buttons">
+                                                <a href="{% url 'package-detail' package.pk %}" class="btn btn-info btn-sm">
+                                                    <i class="fa fa-eye"></i> View Details
+                                                </a>
+                                                {% if user.is_authenticated %}
+                                                    {% if user.is_admin or user.is_travel_agent or user.is_superuser %}
+                                                        
+                                                        
+                                                        <a href="{% url 'package-update' package.pk %}" class="btn btn-warning btn-sm">
+                                                            <i class="fa fa-edit"></i> Edit
+                                                        </a>
+                                                        
+                                                        <a href="{% url 'package-delete' package.pk %}" class="btn btn-danger btn-sm">
+                                                            <i class="fa fa-trash"></i> Delete
+                                                        </a>
+                                                    {% elif user.is_tourist %}
+                                                        <a href="{% url 'package-buy' package.pk %}" class="btn btn-success btn-sm">
+                                                            <i class="fa fa-shopping-cart"></i> Buy Package
+                                                        </a>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-5">
+                            <h3>No tour packages available yet.</h3>
+                            {% if user.is_authenticated and user.is_admin or user.is_travel_agent or user.is_superuser %}
+                                <p>Create the first tour package!</p>
+                                <a href="{% url 'package-create' %}" class="btn btn-primary">
+                                    <i class="fa fa-plus"></i> Create Package
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <p>&copy; 2024 TravelWorld. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'styles/bootstrap4/popper.js' %}"></script>
+<script src="{% static 'styles/bootstrap4/bootstrap.min.js' %}"></script>
+
+</body>
+</html>

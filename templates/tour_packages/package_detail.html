@@ -1,0 +1,226 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ package.title }} - TravelWorld</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Travello template project">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/bootstrap4/bootstrap.min.css' %}">
+    <link href="{% static 'plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/main_styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/responsive.css' %}">
+    <style>
+        .package-detail-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .package-image {
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+        }
+        .package-info {
+            padding: 30px;
+        }
+        .package-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .package-place {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .package-price {
+            font-size: 2rem;
+            color: #28a745;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .package-details {
+            margin-bottom: 25px;
+        }
+        .detail-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .detail-icon {
+            width: 30px;
+            margin-right: 15px;
+            color: #007bff;
+        }
+        .transport-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        .transport-bus { background-color: #ffc107; color: #000; }
+        .transport-train { background-color: #17a2b8; color: #fff; }
+        .transport-plane { background-color: #007bff; color: #fff; }
+        .action-buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .created-by {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="super_container">
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="header_content d-flex flex-row align-items-center justify-content-start">
+                        <div class="header_content_inner d-flex flex-row align-items-end justify-content-start">
+                            <div class="logo"><a href="/"> voyago.BD</a></div>
+                            <nav class="main_nav">
+                                <ul class="d-flex flex-row align-items-start justify-content-start">
+                                    <li><a href="/">Home</a></li>
+                                    <li><a href="accounts/about">About Us</a></li>
+                                    <li class="active"><a href="/packages/">Tour Packages</a></li>
+                                    <li><a href="accounts/contact">Contact</a></li>
+
+                                    {% if user.is_authenticated %}
+                                        <li><a href="accounts/profile">Profile</a></li>
+                                        <li><a href="accounts/logout">Logout</a></li>
+                                    {% else %}
+                                        <li><a href="accounts/register">Register</a></li>
+                                        <li><a href="accounts/login">Login</a></li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                            {% if user.is_authenticated %}
+                                 <div class="header_phone ml-auto">{{user.first_name}}({{user.get_user_type_display}})</div>
+                            {% else %}
+                                <div class="header_phone ml-auto">
+                                    <a style="color: white; font-size:xx-large;" href="" target="_blank">
+                                        <i class="fa fa-instagram" aria-hidden="false"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
+
+                            <div class="hamburger ml-auto">
+                                <i class="fa fa-bars" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert">
+                                <span>&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="package-detail-card">
+                    <div class="package-image" style="background-image: url('{% if package.image %}{{ package.image.url }}{% else %}{% static 'images/destination_1.jpg' %}{% endif %}')"></div>
+                    <div class="package-info">
+                        <div class="package-title">{{ package.title }}</div>
+                        <div class="package-place">
+                            <i class="fa fa-map-marker"></i> {{ package.place }}
+                        </div>
+                        <div class="package-price">Taka :{{ package.price }}</div>
+                        
+                        <div class="package-details">
+                            <div class="detail-item">
+                                <i class="fa fa-clock-o detail-icon"></i>
+                                <strong>Duration:</strong> {{ package.time_slot }}
+                            </div>
+                            <div class="detail-item">
+                                <i class="fa fa-{% if package.transport == 'bus' %}bus{% elif package.transport == 'train' %}train{% else %}plane{% endif %} detail-icon"></i>
+                                <strong>Transport:</strong> 
+                                <span class="transport-badge transport-{{ package.transport }}">
+                                    {{ package.get_transport_display }}
+                                </span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fa fa-calendar detail-icon"></i>
+                                <strong>Created:</strong> {{ package.created_at|date:"F j, Y" }}
+                            </div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <a href="{% url 'package-list' %}" class="btn btn-secondary">
+                                <i class="fa fa-arrow-left"></i> Back to Packages
+                            </a>
+                            
+                            {% if user.is_authenticated %}
+                                {% if user.is_admin or user.is_travel_agent or user.is_superuser %}
+                                    <a href="{% url 'package-update' package.pk %}" class="btn btn-warning">
+                                        <i class="fa fa-edit"></i> Edit Package
+                                    </a>
+                                    <a href="{% url 'package-delete' package.pk %}" class="btn btn-danger">
+                                        <i class="fa fa-trash"></i> Delete Package
+                                    </a>
+                                {% elif user.is_tourist %}
+                                    <a href="{% url 'package-buy' package.pk %}" class="btn btn-success btn-lg">
+                                        <i class="fa fa-shopping-cart"></i> Buy This Package
+                                    </a>
+                                {% endif %}
+                            {% else %}
+                                <a href="{% url 'login' %}" class="btn btn-primary">
+                                    <i class="fa fa-sign-in"></i> Login to Purchase
+                                </a>
+                            {% endif %}
+                        </div>
+
+                        <div class="created-by">
+                            <i class="fa fa-user"></i> Created by: {{ package.created_by.first_name }} {{ package.created_by.last_name }} ({{ package.created_by.get_user_type_display }})
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <p>&copy; 2024 TravelWorld. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'styles/bootstrap4/popper.js' %}"></script>
+<script src="{% static 'styles/bootstrap4/bootstrap.min.js' %}"></script>
+
+</body>
+</html> 

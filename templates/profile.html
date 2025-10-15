@@ -1,0 +1,295 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Profile - {{ user.first_name }} {{ user.last_name }}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Travello template project">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/bootstrap4/bootstrap.min.css' %}">
+    <link href="{% static 'plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/about.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/about_responsive.css' %}">
+    <style>
+            body {
+                background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%);
+            }
+            .header {
+                background: #111 !important;
+            }
+            .header_content_inner .logo a,
+            .main_nav ul li a,
+            .header_phone {
+                color: #fff !important;
+            }
+            .modern-profile-container {
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                min-height: 70vh;
+                margin-top: 240px;
+            }
+            .modern-profile-card {
+                    background: #fff;
+                    border-radius: 24px;
+                    box-shadow: 0 8px 32px rgba(60,72,88,0.15);
+                    padding: 48px 36px 36px 36px;
+                    max-width: 700px;
+                    width: 100%;
+                    margin: 48px auto;
+                    position: relative;
+            }
+            .modern-profile-avatar {
+                width: 110px;
+                height: 110px;
+                border-radius: 50%;
+                background: linear-gradient(90deg, #6366f1 0%, #60a5fa 100%);
+                color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 44px;
+                margin: 0 auto 18px;
+                box-shadow: 0 2px 8px rgba(60,72,88,0.10);
+            }
+            .modern-profile-title {
+                font-size: 2rem;
+                font-weight: 700;
+                color: #3b3b3b;
+                text-align: center;
+                margin-bottom: 8px;
+            }
+            .modern-profile-badge {
+                display: inline-block;
+                padding: 6px 18px;
+                border-radius: 16px;
+                font-size: 15px;
+                font-weight: 600;
+                margin: 0 auto 18px auto;
+                background: #6366f1;
+                color: #fff;
+            }
+            .modern-profile-info {
+                    margin-bottom: 18px;
+                    background: #f3f4f6;
+                    border-radius: 12px;
+                    box-shadow: 0 2px 8px rgba(60,72,88,0.07);
+                    padding: 18px 22px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+                .modern-profile-info h5 {
+                    color: #6366f1;
+                    font-size: 15px;
+                    margin-bottom: 6px;
+                    font-weight: 600;
+                }
+                .modern-profile-info p {
+                    font-size: 17px;
+                    margin-bottom: 0;
+                    color: #222;
+                    font-weight: 500;
+                }
+            .modern-profile-status {
+                margin-top: 18px;
+                text-align: center;
+            }
+            .modern-profile-status .badge {
+                font-size: 15px;
+                padding: 7px 18px;
+                border-radius: 16px;
+            }
+            .modern-profile-actions {
+                text-align: center;
+                margin-top: 28px;
+            }
+            .modern-profile-actions .btn {
+                padding: 10px 32px;
+                font-size: 1.1rem;
+                border-radius: 8px;
+                background: linear-gradient(90deg, #6366f1 0%, #60a5fa 100%);
+                color: #fff;
+                border: none;
+                font-weight: 600;
+                box-shadow: 0 2px 8px rgba(60,72,88,0.10);
+            }
+            .modern-profile-actions .btn:hover {
+                background: linear-gradient(90deg, #60a5fa 0%, #6366f1 100%);
+            }
+    </style>
+</head>
+<body>
+
+    <div class="super_container">
+	
+        <!-- Header -->
+    
+        <header class="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="header_content d-flex flex-row align-items-center justify-content-start">
+                            <div class="header_content_inner d-flex flex-row align-items-end justify-content-start">
+                                <div class="logo"><a href=".."> voyago.BD</a></div>
+                                <nav class="main_nav">
+                                    <ul class="d-flex flex-row align-items-start justify-content-start">
+                                        <li><a href="..">Home</a></li>
+                                        <li><a href="about">About Us</a></li>
+                                        <li><a href="contact">Contact</a></li>
+                                        <li><a href="profile">Profile</a></li>
+                                        <li><a href="logout">Logout</a></li>
+                                    </ul>
+                                </nav>
+                                 <div class="header_phone ml-auto">{{user.first_name}}({{user.get_user_type_display}})</div>
+    
+                                <!-- Hamburger -->
+    
+                                <div class="hamburger ml-auto">
+                                    <i class="fa fa-bars" aria-hidden="true"></i>
+                                </div>
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Travel History Button (moved to its own page) -->
+                <div style="width:100%; display:flex; justify-content:center; margin-top:20px;">
+                    <a href="{% url 'travel-history' %}" class="btn btn-outline-primary" style="padding:10px 20px; border-radius:8px; font-weight:600;"> 
+                        <i class="fa fa-history"></i> Travel History
+                    </a>
+                </div>
+            </div>
+            <div class="header_social d-flex flex-row align-items-center justify-content-start">
+                <ul class="d-flex flex-row align-items-start justify-content-start">
+                    <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                </ul>
+            </div>
+        </header>
+    
+        <!-- Menu -->
+    
+        <div class="menu">
+            <div class="menu_header d-flex flex-row align-items-center justify-content-start">
+                <div class="menu_logo"><a href=".."> voyago.BD</a></div>
+                <div class="menu_close_container ml-auto"><div class="menu_close"><div></div><div></div></div></div>
+            </div>
+            <div class="menu_content">
+                <ul>
+                    <li><a href="..">Home</a></li>
+                    <li><a href="about">About Us</a></li>
+                    <li><a href="contact">Contact</a></li>
+                    <li><a href="profile">Profile</a></li>
+                    <li><a href="logout">Logout</a></li>
+                </ul>
+            </div>
+            <div class="menu_social">
+                <div class="menu_phone ml-auto">Logged in: {{user.first_name}} {{user.last_name}} ({{user.get_user_type_display}})</div>
+            </div>
+        </div>
+        
+        <!-- Home -->
+
+    
+        <!-- Profile -->
+
+            <div class="modern-profile-container">
+                <div class="modern-profile-card">
+                    <div class="modern-profile-avatar">
+                        {{ user.first_name|first }}{{ user.last_name|first }}
+                    </div>
+                    <div class="modern-profile-title">{{ user.first_name }} {{ user.last_name }}</div>
+                    <div class="modern-profile-badge">{{ user.get_user_type_display }}</div>
+                    <div class="modern-profile-info">
+                        <h5><i class="fa fa-user"></i> Username</h5>
+                        <p>{{ user.username }}</p>
+                    </div>
+                    <div class="modern-profile-info">
+                        <h5><i class="fa fa-envelope"></i> Email</h5>
+                        <p>{{ user.email }}</p>
+                    </div>
+                    <div class="modern-profile-info">
+                        <h5><i class="fa fa-phone"></i> Phone Number</h5>
+                        <p>{{ user.phone_number|default:"Not provided" }}</p>
+                    </div>
+                    <div class="modern-profile-info">
+                        <h5><i class="fa fa-calendar"></i> Date Joined</h5>
+                        <p>{{ user.date_joined|date:"F j, Y" }}</p>
+                    </div>
+                    <div class="modern-profile-info">
+                        <h5><i class="fa fa-birthday-cake"></i> Date of Birth</h5>
+                        <p>{{ user.date_of_birth|date:"F j, Y"|default:"Not provided" }}</p>
+                    </div>
+                    <div class="modern-profile-info">
+                        <h5><i class="fa fa-map-marker"></i> Address</h5>
+                        <p>{{ user.address|default:"Not provided" }}</p>
+                    </div>
+                    <div class="modern-profile-status">
+                        {% if user.is_active %}
+                            <span class="badge badge-success">Active</span>
+                        {% else %}
+                            <span class="badge badge-danger">Inactive</span>
+                        {% endif %}
+                        {% if user.is_staff %}
+                            <span class="badge badge-warning"></span>
+                        {% endif %}
+                        {% if user.is_superuser %}
+                            <span class="badge badge-danger">Superuser</span>
+                        {% endif %}
+                    </div>
+                    <div class="modern-profile-actions">
+                        <a href=".." class="btn">Back to Home</a>
+                    </div>
+                </div>
+            </div>
+
+    <!-- Footer -->
+
+        <footer class="footer" style="background: #6366f1; color: #fff; padding: 32px 0 12px 0; margin-top: 48px;">
+            <div class="container text-center">
+                <h4 style="font-weight:700; letter-spacing:1px;">Thank you for using TravelWorld!</h4>
+                <p style="margin-top:12px; font-size:1.1rem;">&copy; {{ now|default:2025 }} TravelWorld. All rights reserved.</p>
+                <div style="margin-top:18px;">
+                    <a href="https://instagram.com/kmranrg" target="_blank" style="color:#fff; margin:0 10px;"><i class="fa fa-instagram"></i></a>
+                    <a href="https://facebook.com" target="_blank" style="color:#fff; margin:0 10px;"><i class="fa fa-facebook"></i></a>
+                    <a href="mailto:youremail@gmail.com" style="color:#fff; margin:0 10px;"><i class="fa fa-envelope"></i></a>
+                </div>
+            </div>
+        </footer>
+</div>
+
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'styles/bootstrap4/popper.js' %}"></script>
+<script src="{% static 'styles/bootstrap4/bootstrap.min.js' %}"></script>
+<script src="{% static 'plugins/greensock/TweenMax.min.js' %}"></script>
+<script src="{% static 'plugins/greensock/TimelineMax.min.js' %}"></script>
+<script src="{% static 'plugins/scrollmagic/ScrollMagic.min.js' %}"></script>
+<script src="{% static 'plugins/greensock/animation.gsap.min.js' %}"></script>
+<script src="{% static 'plugins/greensock/ScrollToPlugin.min.js' %}"></script>
+<script src="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
+<script src="{% static 'plugins/easing/easing.js' %}"></script>
+<script src="{% static 'plugins/parallax-js-master/parallax.min.js' %}"></script>
+<script src="{% static 'js/about.js' %}"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+
+</body>
+</html> 
