@@ -51,6 +51,7 @@
 											{% endif %}
 								</ul>
 							</nav>
+							<!-- Removed hello user name -->
 							{% if user.is_authenticated %}
 								 <div class="header_phone ml-auto">{{user.first_name}}({{user.get_user_type_display}})</div>
 							{% else %}
